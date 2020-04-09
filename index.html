@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Google Maps Project</title>
+    <script src="js/store-data.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <script type="text/javascript" src="https://kit.fontawesome.com/c939d0e917.js"></script>
+</head>
+<body>
+
+    <div class="title">Store Locator</div>
+
+    <div class="search-container">
+      <div class="search">
+        <input type="text" id="zip-code-input" placeholder="Enter Zip..">
+        <i class="fas fa-search"></i> 
+      </div>
+    </div>
+
+    <div class="stores-list-container">
+
+
+      <div class="stores-list">
+        <div class="store-container">
+
+      <div class="store-info-container">
+          <div class="store-address">
+            <span>4508 Beverly Blvd</span> 
+            <span>Los Angeles, CA 90048</span> 
+          </div>
+          <div class="store-phone-number">
+            324-449-2344
+          </div>
+        </div>
+
+
+          <div class="store-number-container">
+            <div class="store-number">1</div>
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+
+    <div id="map"></div>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcwazb-T7zvceyA4VLWVB-eXvwj-XEUIA&callback=initMap">
+    </script>
+</body>
+</html>
