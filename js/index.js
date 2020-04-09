@@ -1,6 +1,6 @@
 
 window.onload = () => {
-	displayStores();
+	
 
 }
 
@@ -257,21 +257,61 @@ function initMap() {
 
 
             infoWindow = new google.maps.InfoWindow();
-            showStoresMarker();
-
+            searchStores();
+           
 
           }
 
+function searchStores(){
+	var foundStores = [];
+	var zipCode = document.getElementById('zip-code-input').value;
+	if(zipCode){
+		for(var store of stores){
+			var postal = store['address']['postalCode'].substring(0, 5);
+			if(postal == zipCode){
+				foundStores.push(store);
+			}
+		}
+	}else{
+		foundStores = stores;
+	}
+	clearLocations();
+	displayStores(foundStores);
+	showStoresMarker(foundStores);
+	setOnClickListener();
+}
+
+
+function clearLocations() {
+         infoWindow.close();
+         for (var i = 0; i < markers.length; i++) {
+           markers[i].setMap(null);
+         }
+         markers.length = 0;
+       }
 
 
 
-function displayStores(){
+function setOnClickListener(){
+	var storeElements = document.querySelectorAll('.store-container');
+	storeElements.forEach(function(elem, index){
+		elem.addEventListener('click', function(){
+			new google.maps.event.trigger(markers[index], 'click');
+		})
+		
+	})
+
+}
+
+
+function displayStores(stores){
 	var storesHtml = '';
 	for(var [index, store] of stores.entries()){
 		var address = store['addressLines'];
 		var phone = store['phoneNumber'];
 		storesHtml += `
 		<div class="store-container">
+		<div class="store-container-background">
 	      <div class="store-info-container">
 	          <div class="store-address">
 	            <span>${address[0]}</span> 
@@ -281,8 +321,10 @@ function displayStores(){
 	            ${phone}
 	          </div>
 	        </div>
+
           <div class="store-number-container">
             <div class="store-number">${index+1}</div>
+          </div>
           </div>
         </div>
       </div>
@@ -291,7 +333,7 @@ function displayStores(){
 	}
 }
 
-function showStoresMarker(){
+function showStoresMarker(stores){
 	var bounds = new google.maps.LatLngBounds();
 	for(var [index, store] of stores.entries()){
 		var latlng = new google.maps.LatLng(
@@ -311,12 +353,27 @@ function showStoresMarker(){
 function createMarker(latlng, name, address, index, open, phone) {
 	  var html = `
 
-	  <b>${name}</b>
-	  <br>${open}
-	  <hr>
-	  <a href='https://www.google.com/maps/dir/?api=1&origin=${origin}+WA&destination=Pike+Place+Market+Seattle'><i class='fas fa-location-arrow'></i>${address}</a>
-	  <br>
-	  <i class='fas fa-phone-alt'></i>${phone}
+	  	<div class="store-info-window">
+	  		<div class="store-info-name">
+	  			${name}
+	  		</div>
+	  		<div class="store-info-status">
+	  			${open}
+	  		</div>
+	  		<div class="store-info-address">
+	  		<div class="circle">
+	  			<i class="fas fa-location-arrow"></i>
+	  			</div>
+	  			${address}
+
+	  		</div>
+	  		<div class="store-info-phone">
+	  		<div class="circle">
+	  			<i class="fas fa-phone-alt"></i>
+	  			</div>
+	  			${phone}
+	  		</div>
+	  	</div>
 
 
 	  `;
@@ -334,6 +391,5 @@ function createMarker(latlng, name, address, index, open, phone) {
 	    infoWindow.open(map, marker);
 	  });
 	  markers.push(marker);
-
 }
 

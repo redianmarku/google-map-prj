@@ -78,6 +78,10 @@ body {
 
 } 
 
+.store-container:hover{
+	cursor:pointer;
+}
+
 .store-address {
 	font-size: 21px;
 	color: #514C4C;
@@ -128,4 +132,65 @@ body {
 	font-size: 18px;
     color: #2a9a65;
     margin: 2px;
+}
+
+.store-info-window{
+	min-width: 300px;
+	font-size: 18px;
+	padding: 8px;
+}
+
+.store-info-name{
+	font-size: 24px;
+	font-weight: bold;
+	color: rgb(0,0,0,87);
+}
+
+.store-info-status{
+	margin-top: 6px;
+    border-bottom: 1px solid #00000029;
+    padding: 2px;
+}
+
+.store-info-address, .store-info-phone{
+	margin: 8px;
+}
+
+.store-info-address , .store-info-phone {
+	display: flex;
+    align-items: center;
+}
+
+.store-info-address .circle, .store-info-phone .circle{
+	width: 30px;
+    height: 30px;
+    background: #1985A1;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin right: 8px;
+}
+
+.search i {
+	cursor: pointer;
+}
+
+.store-container-background{
+	display: flex;
+	flex-grow: 1;
+	padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    transition: all 0.2s ease-in-out;
+}
+
+.store-container-background:hover{
+	background-color: #ccc;
+    flex-grow: 1;
+    /* margin: 8px; */
+    border-radius: 18px;
+    
 }
